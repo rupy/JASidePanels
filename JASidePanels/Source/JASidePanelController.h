@@ -164,6 +164,9 @@ typedef enum _JASidePanelState {
 @property (nonatomic, assign) BOOL allowLeftSwipe;  // defaults to YES
 @property (nonatomic, assign) BOOL allowRightSwipe; // defaults to YES
 
+@property (nonatomic, assign) BOOL showLeftBarButton; // default to YES
+@property (nonatomic, assign) BOOL showRightBarButton; // default to NO
+
 // Containers for the panels.
 @property (nonatomic, strong, readonly) UIView *leftPanelContainer;
 @property (nonatomic, strong, readonly) UIView *rightPanelContainer;

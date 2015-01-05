@@ -79,6 +79,8 @@ static char ja_kvoContext;
 @synthesize centerPanelHidden = _centerPanelHidden;
 @synthesize allowLeftSwipe = _allowLeftSwipe;
 @synthesize allowRightSwipe = _allowRightSwipe;
+@synthesize showLeftBarButton = _showLeftBarButton;
+@synthesize showRightBarButton = _showRightBarButton;
 @synthesize pushesSidePanels = _pushesSidePanels;
 
 #pragma mark - Icon
@@ -148,6 +150,8 @@ static char ja_kvoContext;
     self.shouldDelegateAutorotateToVisiblePanel = YES;
     self.allowRightSwipe = YES;
     self.allowLeftSwipe = YES;
+    self.showLeftBarButton = YES;
+    self.showRightBarButton = NO;
 }
 
 #pragma mark - UIViewController
@@ -439,12 +443,14 @@ static char ja_kvoContext;
                 buttonController = [nav.viewControllers objectAtIndex:0];
             }
         }
-        if (!buttonController.navigationItem.leftBarButtonItem) {
+        if (!buttonController.navigationItem.leftBarButtonItem && _showLeftBarButton) {
             buttonController.navigationItem.leftBarButtonItem = [self leftButtonForCenterPanel];
+
         }
-        if (!buttonController.navigationItem.rightBarButtonItem) {
+        if (!buttonController.navigationItem.rightBarButtonItem && _showRightBarButton ) {
             buttonController.navigationItem.rightBarButtonItem = [self rightButtonForCenterPanel];
         }
+        
     }
 }
 
