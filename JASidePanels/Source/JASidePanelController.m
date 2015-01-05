@@ -439,10 +439,13 @@ static char ja_kvoContext;
                 buttonController = [nav.viewControllers objectAtIndex:0];
             }
         }
-        if (!buttonController.navigationItem.leftBarButtonItem) {   
+        if (!buttonController.navigationItem.leftBarButtonItem) {
             buttonController.navigationItem.leftBarButtonItem = [self leftButtonForCenterPanel];
         }
-    }	
+        if (!buttonController.navigationItem.rightBarButtonItem) {
+            buttonController.navigationItem.rightBarButtonItem = [self rightButtonForCenterPanel];
+        }
+    }
 }
 
 #pragma mark - Gesture Recognizer Delegate
@@ -955,6 +958,12 @@ static char ja_kvoContext;
 - (UIBarButtonItem *)leftButtonForCenterPanel {
     return [[UIBarButtonItem alloc] initWithImage:[[self class] defaultImage] style:UIBarButtonItemStylePlain target:self action:@selector(toggleLeftPanel:)];
 }
+
+
+- (UIBarButtonItem *)rightButtonForCenterPanel {
+    return [[UIBarButtonItem alloc] initWithImage:[[self class] defaultImage] style:UIBarButtonItemStylePlain target:self action:@selector(toggleRightPanel:)];
+}
+
 
 - (void)showLeftPanel:(BOOL)animated {
     [self showLeftPanelAnimated:animated];
