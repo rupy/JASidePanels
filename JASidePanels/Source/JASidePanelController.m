@@ -777,6 +777,24 @@ static char ja_kvoContext;
             }];
         } else if (completion) {
             completion(finished);
+            
+            // if side panel is navigation bar class, set first view controller
+            if ([self.leftPanel isKindOfClass: [UINavigationController class]]){
+                UINavigationController* leftPanel = ((UINavigationController*)self.leftPanel);
+                UIViewController *parent = [leftPanel.viewControllers objectAtIndex:0];
+                if ( parent != nil) {
+                    [leftPanel popToViewController:parent animated:NO];
+                }
+                
+            }
+            if ([self.rightPanel isKindOfClass: [UINavigationController class]]){
+                UINavigationController* rightPanel = ((UINavigationController*)self.rightPanel);
+                UIViewController *parent = [rightPanel.viewControllers objectAtIndex:0];
+                if ( parent != nil) {
+                    [rightPanel popToViewController:parent animated:NO];
+                }
+                
+            }
         }
     }];
 }
