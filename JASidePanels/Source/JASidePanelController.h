@@ -25,6 +25,8 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol JASidePanelControlDelegate;
+
 typedef enum _JASidePanelStyle {
     JASidePanelSingleActive = 0,
     JASidePanelMultipleActive
@@ -172,4 +174,14 @@ typedef enum _JASidePanelState {
 @property (nonatomic, strong, readonly) UIView *rightPanelContainer;
 @property (nonatomic, strong, readonly) UIView *centerPanelContainer;
 
+@property (nonatomic, assign) id<JASidePanelControlDelegate> delegate;
+
+@end
+
+@protocol JASidePanelControlDelegate <NSObject>
+
+@optional
+- (void) showLeftSidePanelInJASidePanelController:(JASidePanelController *)controller;
+- (void) showRightSidePanelInJASidePanelController:(JASidePanelController *)controller;
+- (void) panBegan:(JASidePanelController *)controller WithTranslaton:(CGPoint)translation;
 @end

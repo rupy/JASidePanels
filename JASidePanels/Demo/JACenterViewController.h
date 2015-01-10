@@ -25,7 +25,8 @@
 
 
 #import "JADebugViewController.h"
+#import "JASidePanelController.h"
 
-@interface JACenterViewController : JADebugViewController
+@interface JACenterViewController : JADebugViewController <JASidePanelControlDelegate>
 
 @end

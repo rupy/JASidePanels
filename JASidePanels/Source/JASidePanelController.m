@@ -498,11 +498,15 @@ static char ja_kvoContext;
     if ([sender isKindOfClass:[UIPanGestureRecognizer class]]) {
         UIPanGestureRecognizer *pan = (UIPanGestureRecognizer *)sender;
         
+        CGPoint translate = [pan translationInView:self.centerPanelContainer];
         if (pan.state == UIGestureRecognizerStateBegan) {
+            // pan to open left menu began
+            if ([self.delegate respondsToSelector:@selector(panBegan:WithTranslaton:)]) {
+                [self.delegate panBegan:self WithTranslaton:translate];
+            }
             _locationBeforePan = self.centerPanelContainer.frame.origin;
         }
         
-        CGPoint translate = [pan translationInView:self.centerPanelContainer];
         CGRect frame = _centerPanelRestingFrame;
         frame.origin.x += roundf([self _correctMovement:translate.x]);
         
@@ -778,7 +782,7 @@ static char ja_kvoContext;
         } else if (completion) {
             completion(finished);
             
-            // if side panel is navigation bar class, set first view controller
+            // if side panel is subclass of UINavigationControllerClass, set first view controller for UINavigationController
             if ([self.leftPanel isKindOfClass: [UINavigationController class]]){
                 UINavigationController* leftPanel = ((UINavigationController*)self.leftPanel);
                 UIViewController *parent = [leftPanel.viewControllers objectAtIndex:0];
@@ -1022,6 +1026,9 @@ static char ja_kvoContext;
     if (self.state == JASidePanelLeftVisible) {
         [self _showCenterPanel:YES bounce:NO];
     } else if (self.state == JASidePanelCenterVisible) {
+        if ([self.delegate respondsToSelector:@selector(showLeftSidePanelInJASidePanelController:)]) {
+            [self.delegate showLeftSidePanelInJASidePanelController:self];
+        }
         [self _showLeftPanel:YES bounce:NO];
     }
 }
@@ -1030,6 +1037,9 @@ static char ja_kvoContext;
     if (self.state == JASidePanelRightVisible) {
         [self _showCenterPanel:YES bounce:NO];
     } else if (self.state == JASidePanelCenterVisible) {
+        if ([self.delegate respondsToSelector:@selector(showRightSidePanelInJASidePanelController:)]) {
+            [self.delegate showRightSidePanelInJASidePanelController:self];
+        }
         [self _showRightPanel:YES bounce:NO];
     }
 }

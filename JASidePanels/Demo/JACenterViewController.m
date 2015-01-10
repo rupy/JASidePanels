@@ -47,4 +47,16 @@
     self.view.backgroundColor = [UIColor colorWithRed:red green:green blue:blue alpha:1.0f];
 }
 
+-(void)showLeftSidePanelInJASidePanelController:(JASidePanelController *)controller {
+    NSLog(@"左");
+}
+
+-(void)showRightSidePanelInJASidePanelController:(JASidePanelController *)controller {
+    NSLog(@"右");
+}
+
+-(void)panBegan:(JASidePanelController *)controller WithTranslaton:(CGPoint)translation {
+    NSLog(@"パン");
+}
+
 @end
