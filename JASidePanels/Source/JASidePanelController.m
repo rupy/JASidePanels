@@ -82,6 +82,7 @@ static char ja_kvoContext;
 @synthesize showLeftBarButton = _showLeftBarButton;
 @synthesize showRightBarButton = _showRightBarButton;
 @synthesize pushesSidePanels = _pushesSidePanels;
+@synthesize shouldRewindNavigationController = _shouldRewindNavigationController;
 
 #pragma mark - Icon
 
@@ -152,6 +153,7 @@ static char ja_kvoContext;
     self.allowLeftSwipe = YES;
     self.showLeftBarButton = YES;
     self.showRightBarButton = NO;
+    self.shouldRewindNavigationController = NO;
 }
 
 #pragma mark - UIViewController
@@ -783,21 +785,23 @@ static char ja_kvoContext;
             completion(finished);
             
             // if side panel is subclass of UINavigationControllerClass, set first view controller for UINavigationController
-            if ([self.leftPanel isKindOfClass: [UINavigationController class]]){
-                UINavigationController* leftPanel = ((UINavigationController*)self.leftPanel);
-                UIViewController *parent = [leftPanel.viewControllers objectAtIndex:0];
-                if ( parent != nil) {
-                    [leftPanel popToViewController:parent animated:NO];
+            if (self.shouldRewindNavigationController) {
+                if ([self.leftPanel isKindOfClass: [UINavigationController class]]){
+                    UINavigationController* leftPanel = ((UINavigationController*)self.leftPanel);
+                    UIViewController *parent = [leftPanel.viewControllers objectAtIndex:0];
+                    if ( parent != nil) {
+                        [leftPanel popToViewController:parent animated:NO];
+                    }
+                    
                 }
-                
-            }
-            if ([self.rightPanel isKindOfClass: [UINavigationController class]]){
-                UINavigationController* rightPanel = ((UINavigationController*)self.rightPanel);
-                UIViewController *parent = [rightPanel.viewControllers objectAtIndex:0];
-                if ( parent != nil) {
-                    [rightPanel popToViewController:parent animated:NO];
+                if ([self.rightPanel isKindOfClass: [UINavigationController class]]){
+                    UINavigationController* rightPanel = ((UINavigationController*)self.rightPanel);
+                    UIViewController *parent = [rightPanel.viewControllers objectAtIndex:0];
+                    if ( parent != nil) {
+                        [rightPanel popToViewController:parent animated:NO];
+                    }
+                    
                 }
-                
             }
         }
     }];

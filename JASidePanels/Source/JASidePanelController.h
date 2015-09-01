@@ -176,6 +176,8 @@ typedef enum _JASidePanelState {
 
 @property (nonatomic, assign) id<JASidePanelControlDelegate> delegate;
 
+@property (nonatomic, assign) BOOL shouldRewindNavigationController; // default to NO
+
 @end
 
 @protocol JASidePanelControlDelegate <NSObject>
